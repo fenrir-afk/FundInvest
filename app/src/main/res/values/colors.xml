@@ -10,4 +10,6 @@
     <color name="lightGray">#9A8787</color>
     <color name="MyTransparent">#F6F5F5</color>
     <color name="bottom_nav_color">#33404F</color>
+    <color name="backColor">#465668</color>
+    <color name="background">#FFFFFF</color>
 </resources>

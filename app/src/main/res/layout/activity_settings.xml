@@ -43,7 +43,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/shape"
+        style="@style/BackgroundTopCorners"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,9 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_gravity="center"
-            android:fontFamily="@font/oxygen_mono"
+            style="@style/Text"
             android:text="@string/Themes"
-            android:textColor="@color/black"
             android:textSize="22dp" />
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,21 +66,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/oxygen_mono"
+                style="@style/Text"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="30dp"
-                android:text="@string/DarkTheme"
-                android:textColor="@color/black"
-                android:textSize="22dp" />
+                android:text="@string/DarkTheme" />
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_compat"
+                android:id="@+id/dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="42dp"
                 android:theme="@style/MySwitch"
-                android:checked="true"
+                android:checked="false"
                 android:textOff="OFF"
                 android:textOn="ON"
                 app:showText="true"/>
@@ -96,16 +91,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="30dp"
-                android:fontFamily="@font/oxygen_mono"
-                android:text="@string/LightTheme"
-                android:textColor="@color/black"
-                android:textSize="22dp" />
+                style="@style/Text"
+                android:text="@string/LightTheme" />
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_compat2"
+                android:id="@+id/light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="30dp"
                 android:theme="@style/MySwitch"
                 android:checked="false"
@@ -113,15 +104,15 @@
                 android:textOn="ON"
                 app:showText="true"/>
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:layout_gravity="center"
-            android:fontFamily="@font/oxygen_mono"
+            android:layout_marginTop="50dp"
             android:text="@string/Language"
-            android:textColor="@color/black"
-            android:textSize="22dp" />
+            style="@style/Text"/>
+
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="wrap_content"
@@ -132,7 +123,7 @@
             android:background="@color/white"
             android:popupBackground="@color/white"
             android:fontFamily="@font/oxygen_mono"
-            android:textSize="22dp"/>
+            android:textSize="22sp"/>
 
     </LinearLayout>
 

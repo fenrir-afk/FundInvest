@@ -6,4 +6,5 @@
     <dimen name="base_margin_start">10dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="radius">20dp</dimen>
+    <dimen name="textSize">22sp</dimen>
 </resources>

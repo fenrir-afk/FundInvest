@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    style="@style/Background"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ui.statements.StatementsFragment">
 
     <LinearLayout
@@ -23,36 +23,58 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="40dp"
-            android:src="@drawable/logo2" />
+            style="@style/Logo"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/oxygen_mono"
-            android:text="@string/News"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            style="@style/Text"
+            android:text="@string/News" />
 
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextSearch"
         android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:textSize="17sp"
-        android:hint="@string/hint"
-        android:textColorHint="@color/lightGray"
-        android:fontFamily="@font/oxygen_mono"
+        android:layout_height="48dp"
         android:background="@drawable/edit_text_shape"
+        android:fontFamily="@font/oxygen_mono"
         android:gravity="center"
+        android:hint="@string/hint"
         android:textColor="@color/black"
+        android:textColorHint="@color/lightGray"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.208" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:text="Back"
+        android:layout_marginBottom="416dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Очистить"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.581" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
