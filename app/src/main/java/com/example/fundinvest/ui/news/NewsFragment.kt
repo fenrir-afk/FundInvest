@@ -1,17 +1,27 @@
 package com.example.fundinvest.ui.news
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.savedstate.R
+import com.bumptech.glide.Glide
 import com.example.fundinvest.databinding.FragmentNewsBinding
+import org.w3c.dom.Text
 
 
 class NewsFragment : Fragment() {
@@ -22,54 +32,113 @@ class NewsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val newsViewModel =
-            ViewModelProvider(this).get(NewsViewModel::class.java)
+            ViewModelProvider(this)[NewsViewModel::class.java]
 
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
-        binding.backButton.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
-        binding.editTextSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                if (s.toString() != "") {
-                    binding.buttonClear.visibility = View.VISIBLE
-                } else {
-                    binding.buttonClear.visibility = View.INVISIBLE
-                }
-            }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
-        binding.buttonClear.setOnClickListener{
-            binding.editTextSearch.text.clear()
-            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view?.windowToken, 0)
-
-        }
         // Restore the text from the savedInstanceState if it exists
         if (savedInstanceState != null) {
             binding.editTextSearch.setText(savedInstanceState.getString("searchText"))
         }
+
+
+
+
+        binding.editTextSearch.setOnEditorActionListener { _, actionId, _ ->
+            if(actionId == EditorInfo.IME_ACTION_DONE) {
+                newsViewModel.getNews("https://rb.ru/search/?query=" + binding.editTextSearch.text.toString())
+
+                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow( binding.editTextSearch.windowToken, 0)
+                true
+            } else {
+                false
+            }
+        }
+        newsViewModel.articlesLiveData.observe(viewLifecycleOwner) {
+            println(it)
+            println(newsViewModel.imgUrls)
+            addNewsCards(it,newsViewModel.imgUrls)
+        }
         return binding.root
     }
+    private fun addNewsCards(
+        article: List<String>,
+        imgUrls: MutableList<String>
+
+    ) {
+        for (i in article.indices){
+            val cardView = CardView(requireContext())
+            val cardParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, // CardView width
+                LinearLayout.LayoutParams.WRAP_CONTENT // CardView height
+            )
+            cardParams.setMargins(60, 60, 60, 0)
+            cardView.layoutParams = cardParams
+            cardView.radius = 30F
+            cardView.setCardBackgroundColor(Color.WHITE)
+
+
+            //cardView.setContentPadding(10, 10, 10, 10)
+            val image = ImageView(context)
+            Glide.with(requireContext())
+                .load(imgUrls[i])
+                .into(image)
+            val imageParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, // CardView width
+                LinearLayout.LayoutParams.WRAP_CONTENT // CardView height
+            )
+            imageParams.setMargins(0, 0, 0, 15)
+            image.layoutParams = imageParams
+
+
+            val text = TextView(context)
+            text.setTextColor(Color.BLACK)
+            val textParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, // CardView width
+                LinearLayout.LayoutParams.WRAP_CONTENT // CardView height
+            )
+            text.textSize = 14f
+            text.text = article[i]
+            textParams.setMargins(15, 0, 15, 15)
+            text.layoutParams = textParams
+
+
+            val linearLayout = LinearLayout(context)
+            linearLayout.orientation = LinearLayout.VERTICAL
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, // CardView width
+                LinearLayout.LayoutParams.WRAP_CONTENT // CardView height
+            )
+            linearLayout.layoutParams = layoutParams
+            linearLayout.addView(image)
+            linearLayout.addView(text)
+            cardView.addView(linearLayout)
+            binding.cardsLayout.addView(cardView)
+        }
+        val view = View(context)
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, // CardView width
+            100 // CardView height
+        )
+        view.layoutParams = layoutParams
+        binding.cardsLayout.addView(view)
+
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
         // Save the text from the EditText to the savedInstanceState
         outState.putString("searchText", binding.editTextSearch.text.toString())
     }
-
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
