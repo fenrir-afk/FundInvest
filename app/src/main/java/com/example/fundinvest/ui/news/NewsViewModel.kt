@@ -14,6 +14,9 @@ class NewsViewModel : ViewModel() {
     private val articlesArr: MutableList<String> = mutableListOf()
     val imgUrls: MutableList<String> = mutableListOf()
     fun getNews(url: String) {
+        articlesLiveData.value = emptyList()
+        articlesArr.clear()
+        imgUrls.clear()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Получаем HTML-содержимое страницы

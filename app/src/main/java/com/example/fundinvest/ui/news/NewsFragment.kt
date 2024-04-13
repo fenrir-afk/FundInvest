@@ -53,10 +53,12 @@ class NewsFragment : Fragment() {
 
         binding.editTextSearch.setOnEditorActionListener { _, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.cardsLayout.removeAllViews()
                 newsViewModel.getNews("https://rb.ru/search/?query=" + binding.editTextSearch.text.toString())
 
                 val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow( binding.editTextSearch.windowToken, 0)
+
                 true
             } else {
                 false
