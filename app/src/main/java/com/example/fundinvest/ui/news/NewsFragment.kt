@@ -2,10 +2,9 @@ package com.example.fundinvest.ui.news
 
 import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.KeyEvent
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +13,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.savedstate.R
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.fundinvest.databinding.FragmentNewsBinding
-import org.w3c.dom.Text
+import com.google.android.material.snackbar.Snackbar
+import java.time.Instant
 
 
 class NewsFragment : Fragment() {
@@ -31,6 +30,10 @@ class NewsFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val newsViewModel: NewsViewModel by viewModels()
+
+    private var startTime: Instant? = null
+
 
 
     override fun onCreateView(
@@ -38,39 +41,66 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val newsViewModel =
-            ViewModelProvider(this)[NewsViewModel::class.java]
+       // val newsViewModel =
+           // ViewModelProvider(this)[NewsViewModel::class.java]
 
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
-
         // Restore the text from the savedInstanceState if it exists
         if (savedInstanceState != null) {
             binding.editTextSearch.setText(savedInstanceState.getString("searchText"))
         }
-
-
-
-
         binding.editTextSearch.setOnEditorActionListener { _, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.cardsLayout.removeAllViews()
-                newsViewModel.getNews("https://rb.ru/search/?query=" + binding.editTextSearch.text.toString())
-
-                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow( binding.editTextSearch.windowToken, 0)
-
+                if (isNetworkAvailable(requireContext())) {
+                    newsViewModel.getNews("https://rb.ru/search/?query=" + binding.editTextSearch.text.toString())
+                    //hide keyboard
+                    val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow( binding.editTextSearch.windowToken, 0)
+                    binding.progressBar.visibility = View.VISIBLE
+                } else {
+                    showSnackBar()
+                    val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow( binding.editTextSearch.windowToken, 0)
+                }
                 true
             } else {
                 false
             }
         }
         newsViewModel.articlesLiveData.observe(viewLifecycleOwner) {
-            println(it)
-            println(newsViewModel.imgUrls)
-            addNewsCards(it,newsViewModel.imgUrls)
+            if (it.isEmpty()){
+                if (binding.progressBar.visibility == View.VISIBLE){
+                    Toast.makeText(context,"Nothing wos found",Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.GONE
+                }
+            }else{
+                addNewsCards(it,newsViewModel.imgUrls)
+            }
         }
         return binding.root
     }
+    private fun showSnackBar(){
+        val snackBar = Snackbar.make(requireView(), "Something went wrong,internet is gone", Snackbar.LENGTH_LONG)
+        binding.progressBar.visibility = View.INVISIBLE
+        snackBar.setAction("Try again...") {
+            if (isNetworkAvailable(requireContext())){
+                newsViewModel.getNews("https://rb.ru/search/?query=" + binding.editTextSearch.text.toString())
+                binding.progressBar.visibility = View.VISIBLE
+            }else{
+                showSnackBar()
+            }
+        }
+        snackBar.show()
+    }
+
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetworkInfo
+        return activeNetwork != null && activeNetwork.isConnected
+    }
+
+
     private fun addNewsCards(
         article: List<String>,
         imgUrls: MutableList<String>
@@ -107,7 +137,7 @@ class NewsFragment : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT, // CardView width
                 LinearLayout.LayoutParams.WRAP_CONTENT // CardView height
             )
-            text.textSize = 14f
+            text.textSize = 16f
             text.text = article[i]
             textParams.setMargins(15, 0, 15, 15)
             text.layoutParams = textParams
@@ -132,8 +162,10 @@ class NewsFragment : Fragment() {
         )
         view.layoutParams = layoutParams
         binding.cardsLayout.addView(view)
+        binding.progressBar.visibility = View.GONE
 
     }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
