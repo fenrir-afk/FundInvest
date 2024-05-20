@@ -19,10 +19,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Получение сохраненной темы
-        var sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
-        var nightMode = sharedPreferences.getBoolean("night",false)
+        val sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
+        val nightMode = sharedPreferences.getBoolean("night",false)
         if (nightMode){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
