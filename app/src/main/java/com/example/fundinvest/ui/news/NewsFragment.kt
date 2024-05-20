@@ -1,10 +1,11 @@
 package com.example.fundinvest.ui.news
-
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Bundle
-import android.os.CountDownTimer
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +19,9 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.example.fundinvest.R
 import com.example.fundinvest.databinding.FragmentNewsBinding
 import com.google.android.material.snackbar.Snackbar
-import java.time.Instant
 
 
 class NewsFragment : Fragment() {
@@ -32,25 +33,23 @@ class NewsFragment : Fragment() {
     private val binding get() = _binding!!
     private val newsViewModel: NewsViewModel by viewModels()
 
-    private var startTime: Instant? = null
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       // val newsViewModel =
-           // ViewModelProvider(this)[NewsViewModel::class.java]
+        // val newsViewModel =
+        // ViewModelProvider(this)[NewsViewModel::class.java]
 
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         // Restore the text from the savedInstanceState if it exists
         if (savedInstanceState != null) {
             binding.editTextSearch.setText(savedInstanceState.getString("searchText"))
         }
-        binding.editTextSearch.setOnEditorActionListener { _, actionId, _ ->
+        //get data from adapte and activate listener above
+        binding.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.editTextSearch.clearFocus()
                 binding.cardsLayout.removeAllViews()
                 if (isNetworkAvailable(requireContext())) {
                     newsViewModel.getNews("https://rb.ru/search/?query=" + binding.editTextSearch.text.toString())
@@ -67,7 +66,7 @@ class NewsFragment : Fragment() {
             } else {
                 false
             }
-        }
+        })
         newsViewModel.articlesLiveData.observe(viewLifecycleOwner) {
             if (it.isEmpty()){
                 if (binding.progressBar.visibility == View.VISIBLE){
@@ -75,13 +74,17 @@ class NewsFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                 }
             }else{
-                addNewsCards(it,newsViewModel.imgUrls)
+                addNewsCards(it,newsViewModel.imgUrls,newsViewModel.dateArr,newsViewModel.linkArr)
             }
         }
+
         return binding.root
     }
+    /**
+     * In this method we are checking the network and if it is available call getNews or call showSnackBar() another time
+     * */
     private fun showSnackBar(){
-        val snackBar = Snackbar.make(requireView(), "Something went wrong,internet is gone", Snackbar.LENGTH_LONG)
+        val snackBar = Snackbar.make(requireView(), "Something went wrong,internet connection is gone", Snackbar.LENGTH_LONG)
         binding.progressBar.visibility = View.INVISIBLE
         snackBar.setAction("Try again...") {
             if (isNetworkAvailable(requireContext())){
@@ -93,25 +96,44 @@ class NewsFragment : Fragment() {
         }
         snackBar.show()
     }
-
+    /**
+     * In this method we check is the network available
+     * */
     private fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = connectivityManager.activeNetworkInfo
         return activeNetwork != null && activeNetwork.isConnected
     }
 
-
+    /**
+     * In this method we are creating news card and date texts
+     * @param article list of news articles
+     * @param imgUrls list of all images attached to articles
+     * @param dateArr list of all dates attached to articles
+     * @param linkArr list of all links to full article(attached to our articles)
+     * */
     private fun addNewsCards(
         article: List<String>,
-        imgUrls: MutableList<String>
+        imgUrls: MutableList<String>,
+        dateArr: MutableList<String>,
+        linkArr: MutableList<String>
 
     ) {
-        for (i in article.indices){
+        if (imgUrls.size > article.size){
+            Toast.makeText(context,"Nothing wos found",Toast.LENGTH_LONG).show()
+            binding.progressBar.visibility = View.GONE
+            return
+        }
+        for (i in imgUrls.indices){
             val cardView = CardView(requireContext())
             val cardParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, // CardView width
                 LinearLayout.LayoutParams.WRAP_CONTENT // CardView height
             )
+            cardView.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkArr[i]))
+                startActivity(intent)
+            }
             cardParams.setMargins(60, 60, 60, 0)
             cardView.layoutParams = cardParams
             cardView.radius = 30F
@@ -132,6 +154,7 @@ class NewsFragment : Fragment() {
 
 
             val text = TextView(context)
+            text.setTextAppearance(R.style.Text)
             text.setTextColor(Color.BLACK)
             val textParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, // CardView width
@@ -153,6 +176,20 @@ class NewsFragment : Fragment() {
             linearLayout.addView(image)
             linearLayout.addView(text)
             cardView.addView(linearLayout)
+            val dateText = TextView(context)
+            dateText.setTextColor(Color.WHITE)
+            val dateTextParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, // CardView width
+                LinearLayout.LayoutParams.WRAP_CONTENT // CardView height
+            ).apply {
+                setMargins(resources.getDimension(R.dimen.base_margin_start).toInt(), resources.getDimension(R.dimen.big_margin).toInt(), resources.getDimension(R.dimen.base_margin_start).toInt(), 0)
+                gravity = Gravity.CENTER
+            }
+            dateText.text = "Date:${dateArr[i]}"
+            dateText.layoutParams = dateTextParams
+            dateText.textSize = 10f
+            dateText.setTextAppearance(context, R.style.Text)
+            binding.cardsLayout.addView(dateText)
             binding.cardsLayout.addView(cardView)
         }
         val view = View(context)

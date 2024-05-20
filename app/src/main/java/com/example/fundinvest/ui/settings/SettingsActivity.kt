@@ -21,7 +21,7 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
        checkVersion()
-        val list = arrayListOf<String>("Russian","English")
+        val list = arrayListOf("Russian","English")
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.spinner_item, list)
         adapter.setDropDownViewResource(R.layout.spinner_item)
         binding.spinner.adapter = adapter;
@@ -29,7 +29,8 @@ class SettingsActivity : AppCompatActivity() {
         val nightMode = sharedPreferences.getBoolean("night",false)
         if (nightMode){
             binding.dark.isChecked = true
-            binding.light.isChecked = false
+        }else{
+            binding.light.isChecked = true
         }
         binding.dark.setOnClickListener{
             if (nightMode){
