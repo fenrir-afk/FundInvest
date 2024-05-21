@@ -1,6 +1,14 @@
 package com.example.fundinvest.data
 
-data class Balance_sheet(
+import com.google.gson.annotations.SerializedName
+
+data class BalanceSheetStatementsData(
+    @field:SerializedName("symbol")
+    val symbol: String,
+    @field:SerializedName("annualReports")
+    val annualReports: List<BalanceSheet>
+)
+data class BalanceSheet(
     val fiscalDateEnding: String,
     val reportedCurrency: String,
     val totalAssets: String,

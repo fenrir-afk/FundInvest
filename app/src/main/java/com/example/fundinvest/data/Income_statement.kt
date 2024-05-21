@@ -2,7 +2,7 @@ package com.example.fundinvest.data
 
 import com.google.gson.annotations.SerializedName
 
-data class IncomeList(
+data class IncomeStatementsData(
     @field:SerializedName("symbol")
     val symbol: String,
     @field:SerializedName("annualReports")

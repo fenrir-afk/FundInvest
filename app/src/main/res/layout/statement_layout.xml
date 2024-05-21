@@ -39,8 +39,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17sp"
-                    android:text="Total Revenue" />
+                    android:textSize="17sp" />
                 <TextView
                     android:id="@+id/row1_text2"
                     android:layout_width="wrap_content"
@@ -48,8 +47,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17sp"
-                    android:text="61860" />
+                    android:textSize="15sp" />
             </TableRow>
             <TableRow  android:padding="5dp">
                 <TextView
@@ -59,8 +57,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17sp"
-                    android:text="Gross Profit" />
+                    android:textSize="17sp" />
                 <TextView
                     android:id="@+id/row2_text2"
                     android:layout_width="wrap_content"
@@ -68,8 +65,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17sp"
-                    android:text="34300" />
+                    android:textSize="15sp" />
 
             </TableRow>
             <TableRow  android:padding="5dp">
@@ -80,8 +76,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17dp"
-                    android:text="Operating Income" />
+                    android:textSize="17dp" />
                 <TextView
                     android:id="@+id/row3_text2"
                     android:layout_width="wrap_content"
@@ -89,8 +84,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17sp"
-                    android:text="6979" />
+                    android:textSize="15sp" />
 
             </TableRow>
 
@@ -102,8 +96,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17sp"
-                    android:text="Com.Income Net of Tax" />
+                    android:textSize="17sp" />
                 <TextView
                     android:id="@+id/row4_text2"
                     android:layout_width="wrap_content"
@@ -111,8 +104,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17dp"
-                    android:text="5481" />
+                    android:textSize="15sp" />
 
             </TableRow>
             <TableRow  android:padding="5dp">
@@ -123,8 +115,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17sp"
-                    android:text="Net Income" />
+                    android:textSize="17sp" />
                 <TextView
                     android:id="@+id/row5_text2"
                     android:layout_width="wrap_content"
@@ -132,8 +123,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/oxygen_mono"
-                    android:textSize="17sp"
-                    android:text="7502" />
+                    android:textSize="15sp" />
             </TableRow>
         </TableLayout>
     </androidx.cardview.widget.CardView>

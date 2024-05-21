@@ -1,6 +1,14 @@
 package com.example.fundinvest.data
 
-data class Cash_flow(
+import com.google.gson.annotations.SerializedName
+
+data class CashFlowStatementsData(
+    @field:SerializedName("symbol")
+    val symbol: String,
+    @field:SerializedName("annualReports")
+    val annualReports: List<CashFlow>
+)
+data class CashFlow(
     val fiscalDateEnding: String,
     val reportedCurrency: String,
     val operatingCashflow: String,
@@ -25,7 +33,7 @@ data class Cash_flow(
     val proceedsFromIssuanceOfCommonStock: String?,
     val proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet: String?,
     val proceedsFromIssuanceOfPreferredStock: String?,
-    val proceedsFromRepurchaseOfEquity: String,
+    val proceedsFromRepurchaseOfEquity: String?,
     val proceedsFromSaleOfTreasuryStock: String?,
     val changeInCashAndCashEquivalents: String?,
     val changeInExchangeRate: String?,
