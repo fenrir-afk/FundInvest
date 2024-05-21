@@ -46,7 +46,7 @@ class NewsFragment : Fragment() {
         if (savedInstanceState != null) {
             binding.editTextSearch.setText(savedInstanceState.getString("searchText"))
         }
-        //get data from adapte and activate listener above
+        //get data from adapter and activate listener above
         binding.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.editTextSearch.clearFocus()

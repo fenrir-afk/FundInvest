@@ -23,7 +23,6 @@
     <style name = "Text">
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/oxygen_mono</item>
-        <item name="android:textSize">@dimen/textSize</item>
     </style>
     <style name = "Logo">
         <item name="android:src">@drawable/logo2</item>

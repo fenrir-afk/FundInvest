@@ -30,13 +30,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
+            android:textSize="@dimen/textSize"
             style="@style/Text"
             android:text="@string/Statements" />
 
     </LinearLayout>
-
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/statementSearch"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:textSize="17sp"
@@ -45,7 +45,9 @@
         android:fontFamily="@font/oxygen_mono"
         android:background="@drawable/edit_text_shape"
         android:gravity="center"
+        android:inputType="text"
         android:textColor="@color/black"
+        android:imeOptions="actionDone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -127,4 +129,12 @@
                 android:textSize="15sp" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/statement_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/statement_layout"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
