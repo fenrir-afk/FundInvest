@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "287917600057",
+    "project_id": "fundinvest-880cf",
+    "storage_bucket": "fundinvest-880cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287917600057:android:808095bac026aafffb8ce8",
+        "android_client_info": {
+          "package_name": "com.example.fundinvest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbYTSsEeqhJjqDtFyspBG989yBRX6HikM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
