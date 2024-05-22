@@ -30,4 +30,5 @@
     <string name="Income">Income</string>
     <string name="BalanceSheet">Balance Sheet</string>
     <string name="CashFlow">Cash Flow</string>
+    <string name="login">Login</string>
 </resources>
