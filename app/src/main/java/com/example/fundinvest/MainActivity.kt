@@ -20,11 +20,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
         }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         // Получение сохраненной темы
         val sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night",false)
@@ -47,4 +47,5 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
+
 }

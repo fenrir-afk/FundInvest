@@ -10,6 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/login_card"
         android:layout_width="match_parent"
+        app:cardBackgroundColor="@color/white"
         android:layout_height="410dp"
         app:cardCornerRadius="80dp"
         app:cardElevation="6dp"
@@ -47,6 +48,7 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
+                    android:textColorHint="@color/lightGray"
                     android:textColor="@color/black"
                     android:hint="Email"
                     android:textSize="18sp" />
@@ -64,8 +66,10 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
+                    android:textColorHint="@color/lightGray"
                     android:textColor="@color/black"
                     android:hint="Password"
+                    android:inputType="textPassword"
                     android:textSize="18sp" />
 
             </TableRow>

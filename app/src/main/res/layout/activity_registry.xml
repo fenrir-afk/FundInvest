@@ -13,6 +13,7 @@
         android:layout_height="450dp"
         app:cardCornerRadius="80dp"
         app:cardElevation="6dp"
+        app:cardBackgroundColor="@color/white"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,6 +48,7 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
+                    android:textColorHint="@color/lightGray"
                     android:textColor="@color/black"
                     android:hint="Email"
                     android:textSize="18sp" />
@@ -63,6 +65,7 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
+                    android:textColorHint="@color/lightGray"
                     android:textColor="@color/black"
                     android:hint="Username"
                     android:textSize="18sp" />
@@ -80,7 +83,9 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
+                    android:textColorHint="@color/lightGray"
                     android:textColor="@color/black"
+                    android:inputType="textPassword"
                     android:hint="Password"
                     android:textSize="18sp" />
 
