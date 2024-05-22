@@ -56,7 +56,7 @@ class RecyclerViewAdapter(private val viewModelStoreOwner: ViewModelStoreOwner)
                 text1Row3.text = "Operating Income"
                 text2Row3.text = incomeStatementList[position].operatingIncome
 
-                text1Row4.text = "Com.Income Net of Tax"
+                text1Row4.text = "Comprehensive Income\nNet Of Tax"
                 text2Row4.text = incomeStatementList[position].comprehensiveIncomeNetOfTax
 
                 text1Row5.text = "Net Income"
@@ -73,10 +73,10 @@ class RecyclerViewAdapter(private val viewModelStoreOwner: ViewModelStoreOwner)
                 text1Row2.text = "Total Liabilities"
                 text2Row2.text = balanceSheetStatementList[position].totalLiabilities
 
-                text1Row3.text = "Total Share. Equity"
+                text1Row3.text = "Total ShareHold\nEquity"
                 text2Row3.text = balanceSheetStatementList[position].totalShareholderEquity
 
-                text1Row4.text = "Cash and Cash Equiv."
+                text1Row4.text = "Cash And Cash\nEquivalents"
                 text2Row4.text = balanceSheetStatementList[position].cashAndCashEquivalentsAtCarryingValue
 
                 text1Row5.text = "Goodwill"
@@ -96,7 +96,7 @@ class RecyclerViewAdapter(private val viewModelStoreOwner: ViewModelStoreOwner)
                 text1Row3.text = "Profit/loss"
                 text2Row3.text = cashFlowStatementList[position].profitLoss
 
-                text1Row4.text = "Cash Flow from Investors"
+                text1Row4.text = "Cash Flow from\nInvestors"
                 text2Row4.text = cashFlowStatementList[position].cashflowFromInvestment
 
                 text1Row5.text = "Net Income"
