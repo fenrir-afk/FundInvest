@@ -20,9 +20,8 @@ class RegistryActivity : AppCompatActivity() {
                 || binding.userName.text.toString().isEmpty()) {
                 Toast.makeText(applicationContext, "Fields can not be empty", Toast.LENGTH_LONG).show()
             } else {
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                    binding.email.text.toString(),
-                    binding.password.text.toString()).addOnCompleteListener{
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.email.text.toString(), binding.password.text.toString())
+                    .addOnCompleteListener{
                     if (it.isSuccessful) {
                         var userInfo = hashMapOf<String,String>()
                         userInfo["email"] = binding.email.text.toString()
