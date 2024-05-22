@@ -20,9 +20,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Получение сохраненной темы

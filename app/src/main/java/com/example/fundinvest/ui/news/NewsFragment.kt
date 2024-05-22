@@ -187,7 +187,7 @@ class NewsFragment : Fragment() {
             }
             dateText.text = "Date:${dateArr[i]}"
             dateText.layoutParams = dateTextParams
-            dateText.textSize = 10f
+            dateText.textSize = 16f
             dateText.setTextAppearance(context, R.style.Text)
             binding.cardsLayout.addView(dateText)
             binding.cardsLayout.addView(cardView)

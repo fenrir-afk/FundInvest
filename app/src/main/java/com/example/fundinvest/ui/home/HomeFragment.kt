@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        homeViewModel.getData()
         binding.ipoCard.setOnClickListener{
             val intent = Intent(this.context, IpoActivity::class.java)
             startActivity(intent)
