@@ -48,7 +48,7 @@ class StatementsFragment : Fragment() {
         statementsViewModel.incomeStatements.observe(viewLifecycleOwner){
             incomeList = it
             if(it.isEmpty()){
-                val toast = Toast.makeText(this.context, "The day limit was reached",Toast.LENGTH_LONG)
+                val toast = Toast.makeText(this.context, "Something went wrong(day limit or bad token)",Toast.LENGTH_LONG)
                 toast.show()
             }else{
                 adapter.setIncomeStatementData(incomeList)
@@ -60,13 +60,15 @@ class StatementsFragment : Fragment() {
         }
         statementsViewModel.cashFlowStatements.observe(viewLifecycleOwner){
             cashFlowList = it
+            if (it.isNotEmpty()){
+                sendDataToDb(binding.statementSearch.text.toString())
+            }
         }
         binding.statementSearch.setOnEditorActionListener { v, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_DONE) {
                 statementsViewModel.getIncomeStatement(v.text.toString())
                 statementsViewModel.getBalanceSheet(v.text.toString())
                 statementsViewModel.getCashFlow(v.text.toString())
-                sendDataToDb(v.text.toString())
                 val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow( binding.statementSearch.windowToken, 0)
                 true
@@ -96,9 +98,6 @@ class StatementsFragment : Fragment() {
             if (balanceSheetList.isNotEmpty()){
                 adapter.setBalanceSheetData(balanceSheetList)
                 binding.statementList.adapter = adapter
-            }else{
-                val toast = Toast.makeText(this.context, "The day limit was reached",Toast.LENGTH_LONG)
-                toast.show()
             }
         }
         binding.cashFlowCard.setOnClickListener{
@@ -111,9 +110,6 @@ class StatementsFragment : Fragment() {
             if (cashFlowList.isNotEmpty()){
                 adapter.setCashFlowData(cashFlowList)
                 binding.statementList.adapter = adapter
-            }else{
-                val toast = Toast.makeText(this.context, "The day limit was reached",Toast.LENGTH_LONG)
-                toast.show()
             }
         }
         return root

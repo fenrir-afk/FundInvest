@@ -1,6 +1,8 @@
 package com.example.fundinvest.ui.statements
 
+import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +25,7 @@ class StatementsViewModel : ViewModel() {
     var balanceSheetStatements:MutableLiveData<List<BalanceSheet>> = MutableLiveData()
     var cashFlowStatements:MutableLiveData<List<CashFlow>> = MutableLiveData()
     companion object{
-        const val API_KEY = "UAMCXPM77HIW9QEY"
+        const val API_KEY = "3CTJ5KY53JSWIOSI"
     }
 
    fun getIncomeStatement(token:String = ""){
@@ -36,14 +38,13 @@ class StatementsViewModel : ViewModel() {
                        if (response.isSuccessful) {
                            val incomeResponse = response.body()
                            incomeStatements.postValue(incomeResponse?.annualReports ?: emptyList())
-                           Log.d("Income statement","Api data was Successfully get")
                        } else {
-                           Log.d("Income statement","Response is not successful")
+                           Log.d("Retrofit","Response is not successful")
                        }
                    }
 
                    override fun onFailure(call: Call<IncomeStatementsData>, t: Throwable) {
-                       Log.d("Income statement","Fail")
+                       Log.d("Retrofit","Fail")
                    }
                })
 
@@ -59,14 +60,14 @@ class StatementsViewModel : ViewModel() {
                         if (response.isSuccessful) {
                             val balanceSheetResponse = response.body()
                             balanceSheetStatements.postValue(balanceSheetResponse?.annualReports ?: emptyList())
-                            Log.d("Balance sheet","Api data was Successfully get")
+                            Log.d("Retrofit","Api data was Successfully get")
                         } else {
-                            Log.d("Balance sheet","Response is not successful")
+                            Log.d("Retrofit","Response is not successful")
                         }
                     }
 
                     override fun onFailure(call: Call<BalanceSheetStatementsData>, t: Throwable) {
-                        Log.d("Balance sheet","Fail")
+                        Log.d("Retrofit","Fail")
                     }
                 })
         }
@@ -81,14 +82,14 @@ class StatementsViewModel : ViewModel() {
                         if (response.isSuccessful) {
                             val cashFlowResponse = response.body()
                             cashFlowStatements.postValue(cashFlowResponse?.annualReports ?: emptyList())
-                            Log.d("Cash flow statement","Api data was Successfully get")
+                            Log.d("Retrofit","Api data was Successfully get")
                         } else {
-                            Log.d("Cash flow statement","Response is not successful")
+                            Log.d("Retrofit","Response is not successful")
                         }
                     }
 
                     override fun onFailure(call: Call<CashFlowStatementsData>, t: Throwable) {
-                        Log.d("Cash flow statement","Fail")
+                        Log.d("Retrofit","Fail")
                     }
                 })
         }
