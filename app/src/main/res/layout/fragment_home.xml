@@ -135,6 +135,12 @@
             android:textSize="@dimen/textSize"
             style="@style/Text"
             android:text="@string/Operations" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/history_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/history_list_item"
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

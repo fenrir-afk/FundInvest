@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fundinvest.databinding.FragmentHomeBinding
 import com.example.fundinvest.ui.ipo.IpoActivity
 import com.example.fundinvest.ui.settings.SettingsActivity
+import com.example.fundinvest.ui.statements.RecyclerViewAdapter
 
 class HomeFragment : Fragment() {
 
@@ -25,11 +27,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         homeViewModel.getData()
+        val adapter  = HistoryAdapter(this)
+        binding.historyList.layoutManager = LinearLayoutManager(this.context)
+        homeViewModel.historyList.observe(viewLifecycleOwner){
+            adapter.setHistoryData(it)
+            binding.historyList.adapter = adapter
+        }
         binding.ipoCard.setOnClickListener{
             val intent = Intent(this.context, IpoActivity::class.java)
             startActivity(intent)

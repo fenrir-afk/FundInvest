@@ -12,14 +12,14 @@ import com.example.fundinvest.data.CashFlow
 import com.example.fundinvest.data.IncomeStatement
 
 class RecyclerViewAdapter(private val viewModelStoreOwner: ViewModelStoreOwner)
-    : RecyclerView.Adapter<RecyclerViewAdapter.TradeViewHolder>() {
+    : RecyclerView.Adapter<RecyclerViewAdapter.StatementViewHolder>() {
 
     private var incomeStatementList: List<IncomeStatement> = listOf()
     private var balanceSheetStatementList: List<BalanceSheet> = listOf()
     private var cashFlowStatementList: List<CashFlow> = listOf()
     private var tokenGlobal = 0
 
-    class TradeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class StatementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title = itemView.findViewById<TextView>(R.id.title)!!
         val text1Row1 = itemView.findViewById<TextView>(R.id.row1_text1)!!
         val text2Row1 = itemView.findViewById<TextView>(R.id.row1_text2)!!
@@ -33,16 +33,16 @@ class RecyclerViewAdapter(private val viewModelStoreOwner: ViewModelStoreOwner)
         val text2Row5 = itemView.findViewById<TextView>(R.id.row5_text2)!!
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TradeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatementViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.statement_layout,
             parent,
             false
         )
-        return TradeViewHolder(itemView)
+        return StatementViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: TradeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StatementViewHolder, position: Int) {
         if (tokenGlobal == 0){
             holder.apply {
                 title.text = "Date: " +  incomeStatementList[position].fiscalDateEnding

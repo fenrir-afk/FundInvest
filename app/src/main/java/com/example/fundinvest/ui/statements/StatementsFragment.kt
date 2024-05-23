@@ -2,6 +2,7 @@ package com.example.fundinvest.ui.statements
 
 import android.content.Context
 import android.graphics.Color
+import android.icu.util.LocaleData
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,11 @@ import com.example.fundinvest.data.BalanceSheet
 import com.example.fundinvest.data.CashFlow
 import com.example.fundinvest.data.IncomeStatement
 import com.example.fundinvest.databinding.FragmentStetementsBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.UUID
 
 class StatementsFragment : Fragment() {
 
@@ -60,6 +66,7 @@ class StatementsFragment : Fragment() {
                 statementsViewModel.getIncomeStatement(v.text.toString())
                 statementsViewModel.getBalanceSheet(v.text.toString())
                 statementsViewModel.getCashFlow(v.text.toString())
+                sendDataToDb(v.text.toString())
                 val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow( binding.statementSearch.windowToken, 0)
                 true
@@ -110,6 +117,14 @@ class StatementsFragment : Fragment() {
             }
         }
         return root
+    }
+
+    private fun sendDataToDb(token:String) {
+        val userInfo = hashMapOf<String,String>()
+        userInfo["token"] = token
+        userInfo["date"] = LocalDate.now().toString()
+        FirebaseDatabase.getInstance().getReference().child("StatementsHistory").child(UUID.randomUUID().toString())
+            .setValue(userInfo)
     }
 
     override fun onDestroyView() {
