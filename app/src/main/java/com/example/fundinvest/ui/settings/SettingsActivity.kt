@@ -1,14 +1,22 @@
 package com.example.fundinvest.ui.settings
 
+
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
+import com.example.fundinvest.MainActivity
 import com.example.fundinvest.R
 import com.example.fundinvest.databinding.ActivitySettingsBinding
+import java.util.Locale
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -21,12 +29,9 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
        checkVersion()
-        val list = arrayListOf("Russian","English")
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.spinner_item, list)
-        adapter.setDropDownViewResource(R.layout.spinner_item)
-        binding.spinner.adapter = adapter;
         val sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night",false)
+        setLocale()
         if (nightMode){
             binding.dark.isChecked = true
         }else{
@@ -67,6 +72,24 @@ class SettingsActivity : AppCompatActivity() {
                 binding.dark.isChecked = true
             }
 
+        }
+    }
+    fun setLocale(){
+        val sharedPreferences1 = getSharedPreferences("Language", Context.MODE_PRIVATE)
+       // val language = sharedPreferences1.getString("language", "en")
+        binding.ruButton.setOnClickListener{
+            Locale.setDefault(Locale("ru"))
+            val editor = sharedPreferences1.edit()
+            editor.putString("language", "ru")
+            editor.apply()
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ru"))
+        }
+        binding.enButton.setOnClickListener{
+            Locale.setDefault(Locale("en"))
+            val editor = sharedPreferences1.edit()
+            editor.putString("language", "en")
+            editor.apply()
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
         }
     }
 

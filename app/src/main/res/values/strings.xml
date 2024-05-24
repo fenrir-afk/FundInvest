@@ -2,7 +2,7 @@
     <string name="app_name">FundInvest</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">News</string>
     <string name="Statements">Statements</string>
     <string name="News">News</string>
     <string name="Search">Search</string>
@@ -14,10 +14,13 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="DarkTheme">Dark theme</string>
-
     <string-array name="languages">
-        <item>Russian</item>
-        <item>English</item>
+        <item>en</item>
+        <item>ru</item>
+    </string-array>
+    <string-array name="languagesReversal">
+        <item>ru</item>
+        <item>en</item>
     </string-array>
     <string name="Themes">Themes</string>
     <string name="IPO">IPO</string>
@@ -25,6 +28,8 @@
     <string name="LightTheme">Light theme</string>
     <string name="Language">Language</string>
     <string name="FundInvest">FundInvest</string>
+    <string name="Russian">Russian</string>
+    <string name="English">English</string>
     <string name="Operations">Operations:</string>
     <string name="hint">Enter company ticket</string>
     <string name="Income">Income</string>

@@ -13,6 +13,7 @@ import com.example.fundinvest.databinding.ActivityMainBinding
 import com.example.fundinvest.ui.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +27,19 @@ class MainActivity : AppCompatActivity() {
         }else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
+        val current = Locale.getDefault().language
         super.onCreate(savedInstanceState)
+        val sharedPreferences1 = getSharedPreferences("Language", Context.MODE_PRIVATE)
+        val language = sharedPreferences1.getString("language", "en")
+        if (current != language){
+            val newLocale = Locale(language)
+            Locale.setDefault(newLocale)
+            val resources = resources
+            val configuration = resources.configuration
+            configuration.setLocale(newLocale)
+            resources.updateConfiguration(configuration, resources.displayMetrics)
+            recreate()
+        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Получение сохраненной темы

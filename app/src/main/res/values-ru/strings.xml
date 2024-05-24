@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FundInvest</string>
+    <string name="title_home">Домашняя</string>
+    <string name="title_dashboard">Отчёты</string>
+    <string name="title_notifications">Новости</string>
+    <string name="Statements">Отчёты</string>
+    <string name="News">Новости</string>
+    <string name="Search">Поиск</string>
+    <string name="Companies">Компании:</string>
+    <string name="title_activity_ipo">IpoActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Слудующий</string>
+    <string name="previous">Предыдущийй</string>
+    <string name="DarkTheme">Тёмная тема</string>
+    <string-array name="languages">
+        <item>en</item>
+        <item>ru</item>
+    </string-array>
+    <string-array name="languagesReversal">
+        <item>ru</item>
+        <item>en</item>
+    </string-array>
+    <string name="Themes">Темы</string>
+    <string name="Russian">Русский</string>
+    <string name="English">Английский</string>
+    <string name="IPO">IPO</string>
+    <string name="Settings">Настройик</string>
+    <string name="LightTheme">Светлая тема</string>
+    <string name="Language">Язык</string>
+    <string name="FundInvest">FundInvest</string>
+    <string name="Operations">Оперции:</string>
+    <string name="hint">Введите тикет компании</string>
+    <string name="Income">Income</string>
+    <string name="BalanceSheet">Balance Sheet</string>
+    <string name="CashFlow">Cash Flow</string>
+    <string name="login">Login</string>
+</resources>
