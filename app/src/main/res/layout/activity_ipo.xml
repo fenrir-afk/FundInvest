@@ -54,5 +54,11 @@
             android:layout_marginTop="50dp"
             style="@style/Text"
             android:text="@string/Companies" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ipo_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            tools:listitem="@layout/ipo_item"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

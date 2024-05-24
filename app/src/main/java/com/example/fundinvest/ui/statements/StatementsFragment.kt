@@ -33,6 +33,7 @@ class StatementsFragment : Fragment() {
     private var incomeList = listOf<IncomeStatement>()
     private var balanceSheetList = listOf<BalanceSheet>()
     private var cashFlowList = listOf<CashFlow>()
+    private var counter = 0 // we need this counter to prevent bad access to DB
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,8 +61,9 @@ class StatementsFragment : Fragment() {
         }
         statementsViewModel.cashFlowStatements.observe(viewLifecycleOwner){
             cashFlowList = it
-            if (it.isNotEmpty()){
-                sendDataToDb(binding.statementSearch.text.toString())
+            if (it.isNotEmpty() && counter == 1){
+                statementsViewModel.sendDataToDb(binding.statementSearch.text.toString())
+                counter = 0
             }
         }
         binding.statementSearch.setOnEditorActionListener { v, actionId, _ ->
@@ -69,6 +71,7 @@ class StatementsFragment : Fragment() {
                 statementsViewModel.getIncomeStatement(v.text.toString())
                 statementsViewModel.getBalanceSheet(v.text.toString())
                 statementsViewModel.getCashFlow(v.text.toString())
+                counter = 1 // we need this counter to prevent bad access to DB
                 val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow( binding.statementSearch.windowToken, 0)
                 true
@@ -115,14 +118,6 @@ class StatementsFragment : Fragment() {
         return root
     }
 
-    private fun sendDataToDb(token:String) {
-        val userInfo = hashMapOf<String,String>()
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        userInfo["token"] = token
-        userInfo["date"] = LocalDate.now().toString()
-        FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("StatementsHistory").child(UUID.randomUUID().toString())
-            .setValue(userInfo)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

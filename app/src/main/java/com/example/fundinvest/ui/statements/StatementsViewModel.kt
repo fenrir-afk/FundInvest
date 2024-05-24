@@ -14,11 +14,15 @@ import com.example.fundinvest.data.IncomeStatement
 import com.example.fundinvest.data.IncomeStatementsData
 import com.example.fundinvest.retrofit.AlphaVantageApi
 import com.example.fundinvest.retrofit.RetrofitHelper
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.util.UUID
 
 class StatementsViewModel : ViewModel() {
     var incomeStatements:MutableLiveData<List<IncomeStatement>> = MutableLiveData()
@@ -93,5 +97,14 @@ class StatementsViewModel : ViewModel() {
                     }
                 })
         }
+    }
+     fun sendDataToDb(token:String) {
+        val userInfo = hashMapOf<String,String>()
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        userInfo["token"] = token
+        userInfo["date"] = LocalDate.now().toString()
+        FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("StatementsHistory").child(
+            UUID.randomUUID().toString())
+            .setValue(userInfo)
     }
 }
