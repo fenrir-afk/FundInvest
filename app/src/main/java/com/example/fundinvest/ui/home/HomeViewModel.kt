@@ -3,6 +3,7 @@ package com.example.fundinvest.ui.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.fundinvest.data.StatementHistoryElement
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -14,8 +15,12 @@ class HomeViewModel : ViewModel() {
 
    fun getData() {
        var localHistoryList = mutableListOf<StatementHistoryElement>()
-       val rootRef = FirebaseDatabase.getInstance().reference
-       rootRef.child("StatementsHistory").addValueEventListener(object : ValueEventListener {
+       val userId = FirebaseAuth.getInstance().currentUser!!.uid
+       val databaseRef = FirebaseDatabase.getInstance().reference
+           .child("Users")
+           .child(userId)
+           .child("StatementsHistory")
+       databaseRef.addValueEventListener(object : ValueEventListener {
            override fun onDataChange(snapshot: DataSnapshot) {
                for (userSnapshot in snapshot.children) {
                    val history = userSnapshot.getValue(StatementHistoryElement::class.java)

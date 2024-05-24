@@ -117,9 +117,10 @@ class StatementsFragment : Fragment() {
 
     private fun sendDataToDb(token:String) {
         val userInfo = hashMapOf<String,String>()
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
         userInfo["token"] = token
         userInfo["date"] = LocalDate.now().toString()
-        FirebaseDatabase.getInstance().getReference().child("StatementsHistory").child(UUID.randomUUID().toString())
+        FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("StatementsHistory").child(UUID.randomUUID().toString())
             .setValue(userInfo)
     }
 
