@@ -25,10 +25,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/base_margin_start"
+            android:layout_marginStart="@dimen/base_margin"
             android:text="@string/FundInvest"
             style="@style/Text"
-            android:textSize="@dimen/textSize"
+            android:textSize="@dimen/big_text"
             android:textColor="@color/white"/>
 
     </LinearLayout>
@@ -61,7 +61,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="15dp"
                 app:cardCornerRadius="@dimen/radius"
-                app:cardElevation="8dp">
+                app:cardElevation="@dimen/base_cardElevation">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="@dimen/big_margin"
                     android:src="@drawable/ipo" />
 
                 <TextView
@@ -84,7 +84,7 @@
                     android:fontFamily="@font/oxygen_mono"
                     android:text="@string/IPO"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="@dimen/big_text" />
 
             </androidx.cardview.widget.CardView>
 
@@ -95,7 +95,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="30dp"
                 app:cardCornerRadius="@dimen/radius"
-                app:cardElevation="8dp">
+                app:cardElevation="@dimen/base_cardElevation">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="@dimen/big_margin"
                     android:src="@drawable/menu" />
 
                 <TextView
@@ -118,7 +118,7 @@
                     android:fontFamily="@font/oxygen_mono"
                     android:text="@string/Settings"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="@dimen/big_text" />
 
             </androidx.cardview.widget.CardView>
 
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="15dp"
-            android:textSize="@dimen/textSize"
+            android:textSize="@dimen/big_text"
             style="@style/Text"
             android:text="@string/Operations" />
         <androidx.recyclerview.widget.RecyclerView
@@ -140,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/history_list_item"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="@dimen/base_margin" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

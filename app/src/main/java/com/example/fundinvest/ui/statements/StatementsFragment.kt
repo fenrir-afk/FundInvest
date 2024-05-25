@@ -2,7 +2,6 @@ package com.example.fundinvest.ui.statements
 
 import android.content.Context
 import android.graphics.Color
-import android.icu.util.LocaleData
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +16,6 @@ import com.example.fundinvest.data.BalanceSheet
 import com.example.fundinvest.data.CashFlow
 import com.example.fundinvest.data.IncomeStatement
 import com.example.fundinvest.databinding.FragmentStetementsBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.UUID
 
 class StatementsFragment : Fragment() {
 
@@ -88,8 +82,10 @@ class StatementsFragment : Fragment() {
             binding.balanceSheetText.setTextColor(Color.BLACK)
             binding.incomeText.setBackgroundColor(Color.BLACK)
             binding.incomeText.setTextColor(Color.WHITE)
-            adapter.setIncomeStatementData(incomeList)
-            binding.statementList.adapter = adapter
+            if (incomeList.isNotEmpty()){
+                adapter.setIncomeStatementData(incomeList)
+                binding.statementList.adapter = adapter
+            }
         }
         binding.balanceSheetCard.setOnClickListener{
             binding.incomeText.setBackgroundColor(Color.WHITE)

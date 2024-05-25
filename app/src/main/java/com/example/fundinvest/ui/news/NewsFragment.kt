@@ -182,7 +182,7 @@ class NewsFragment : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT, // CardView width
                 LinearLayout.LayoutParams.WRAP_CONTENT // CardView height
             ).apply {
-                setMargins(resources.getDimension(R.dimen.base_margin_start).toInt(), resources.getDimension(R.dimen.big_margin).toInt(), resources.getDimension(R.dimen.base_margin_start).toInt(), 0)
+                setMargins(resources.getDimension(R.dimen.base_margin).toInt(), resources.getDimension(R.dimen.big_margin).toInt(), resources.getDimension(R.dimen.base_margin).toInt(), 0)
                 gravity = Gravity.CENTER
             }
             dateText.text = "Date:${dateArr[i]}"

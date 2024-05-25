@@ -11,7 +11,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_margin_start"
+        android:layout_margin="@dimen/base_margin"
         android:layout_marginBottom="104dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:textSize="@dimen/textSize"
+            android:layout_marginStart="@dimen/base_margin"
+            android:textSize="@dimen/big_text"
             style="@style/Text"
             android:text="@string/News" />
 
@@ -47,7 +47,7 @@
         android:inputType="text"
         android:textColor="@color/black"
         android:textColorHint="@color/lightGray"
-        android:textSize="17sp"
+        android:textSize="@dimen/medium_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -69,10 +69,10 @@
         android:id="@+id/clear_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Clear history"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
+        android:text="@string/clear_history"
+        android:layout_marginStart="@dimen/base_margin"
+        android:layout_marginEnd="@dimen/base_margin"
+        android:layout_marginTop="@dimen/base_margin"
         app:layout_constraintTop_toBottomOf="@+id/history"
         android:visibility="gone"/>
 
@@ -87,26 +87,18 @@
         app:layout_constraintStart_toStartOf="parent"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/editTextSearch" />
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/base_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clear_button">
-
         <LinearLayout
             android:id="@+id/cardsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
         </LinearLayout>
     </ScrollView>
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

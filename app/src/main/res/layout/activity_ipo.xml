@@ -10,7 +10,7 @@
         android:id="@+id/back_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="@dimen/base_margin_start"
+        android:layout_marginStart="@dimen/base_margin"
         android:layout_marginTop="68dp"
         android:layout_marginBottom="65dp"
         android:src="@drawable/arrow"
@@ -30,7 +30,7 @@
         android:gravity="clip_horizontal"
         android:text="@string/IPO"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="@dimen/biggest_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
-            android:textSize="18sp"
+            android:textSize="@dimen/medium_text"
             android:layout_marginTop="50dp"
             style="@style/Text"
             android:text="@string/Companies" />
@@ -58,7 +58,7 @@
             android:id="@+id/ipo_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/big_margin"
             tools:listitem="@layout/ipo_item"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

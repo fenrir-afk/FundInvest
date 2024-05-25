@@ -4,14 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp">
+        app:cardCornerRadius="@dimen/base_cardCorners"
+        app:cardElevation="@dimen/base_cardElevation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,53 +26,58 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/arrow_light"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TableLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/base_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TableRow android:padding="5dp">
+                <TableRow android:padding="@dimen/base_padding">
+
                     <TextView
                         android:id="@+id/token"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.6"
-                        android:textColor="@color/black"
                         android:fontFamily="@font/oxygen_mono"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
+
                     <TextView
                         android:id="@+id/exchange"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
                         android:fontFamily="@font/oxygen_mono"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
                 </TableRow>
+
                 <TableRow android:padding="5dp">
+
                     <TextView
                         android:id="@+id/company"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:layout_weight="1.6"
                         android:fontFamily="@font/oxygen_mono"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
+
                     <TextView
                         android:id="@+id/date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
                         android:fontFamily="@font/oxygen_mono"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
                 </TableRow>
             </TableLayout>
