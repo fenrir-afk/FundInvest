@@ -1,17 +1,16 @@
 package com.example.fundinvest.repository
 
-import android.content.Intent
 import android.util.Log
-import android.widget.Toast
-import com.example.fundinvest.MainActivity
 import com.example.fundinvest.data.BalanceSheet
 import com.example.fundinvest.data.BalanceSheetStatementsData
 import com.example.fundinvest.data.CashFlow
 import com.example.fundinvest.data.CashFlowStatementsData
+import com.example.fundinvest.data.IPOData
 import com.example.fundinvest.data.IncomeStatement
 import com.example.fundinvest.data.IncomeStatementsData
 import com.example.fundinvest.data.StatementHistoryElement
 import com.example.fundinvest.retrofit.AlphaVantageApi
+import com.example.fundinvest.retrofit.IPOCalendarService
 import com.example.fundinvest.retrofit.RetrofitHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -26,7 +25,8 @@ import java.util.UUID
 
 class InvestRepository {
     companion object{
-        const val API_KEY = "3CTJ5KY53JSWIOSI"
+        const val API_KEY = "3CTJ5KY53JSWIOSI" //statements
+        const val API_IPO_KEY = "ZlbEk7cFYkbMfErvhkWj9xPPNI0Qlw8M"
     }
     fun getData(callback: (List<StatementHistoryElement>) -> Unit) {
         val localHistoryList = mutableListOf<StatementHistoryElement>()
@@ -147,5 +147,26 @@ class InvestRepository {
                 callback(false)
                 Log.e("LoginError","Error: ${it.message}")
             }
+    }
+    fun getIpoCompanies(callback: (List<IPOData>) -> Unit){
+        val ipoApi = RetrofitHelper.getInstanceIPO().create(IPOCalendarService::class.java)
+        // launching a new coroutine
+            ipoApi.getIPOCalendar(API_IPO_KEY)
+                .enqueue(object : Callback<List<IPOData>> {
+                    override fun onResponse(
+                        call: Call<List<IPOData>>,
+                        response: Response<List<IPOData>>
+                    ) {
+                        if (response.isSuccessful) {
+                            val incomeResponse = response.body()
+                            callback(incomeResponse!!)
+                        } else {
+                            Log.d("Retrofit","Response is not successful")
+                        }
+                    }
+                    override fun onFailure(call: Call<List<IPOData>>, t: Throwable) {
+                        println(t.message)
+                    }
+                })
     }
 }
