@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.fundinvest.MainActivity
 import com.example.fundinvest.R
 import com.example.fundinvest.databinding.ActivityLoginBinding
@@ -17,27 +18,25 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var loginViewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         binding.loginButton.setOnClickListener {
             if (binding.email.text.toString().isEmpty() || binding.password.text.toString().isEmpty()) {
                 Toast.makeText(applicationContext, "Fields can not be empty", Toast.LENGTH_LONG).show()
             } else {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(
-                    binding.email.text.toString(),
-                    binding.password.text.toString()
-                )
-                    .addOnCompleteListener{
-                        if (it.isSuccessful) {
-                            startActivity(Intent(this, MainActivity::class.java))
-                            finish()
-                        }
+                loginViewModel.login(binding.email.text.toString(),binding.password.text.toString())
+                loginViewModel.loginResult.observe(this){
+                    if (it){
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }else{
+                        Toast.makeText(this,"LoginError",Toast.LENGTH_SHORT).show()
                     }
-                    .addOnFailureListener {
-                        Toast.makeText(applicationContext, "Error: ${it.message}", Toast.LENGTH_LONG).show()
-                    }
+                }
             }
         }
         binding.sendToSighUp.setOnClickListener {

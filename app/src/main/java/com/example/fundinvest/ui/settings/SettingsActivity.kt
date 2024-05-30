@@ -28,7 +28,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.backButton.setOnClickListener {
             finish()
         }
-       checkVersion()
         val sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night",false)
         setLocale()
@@ -90,16 +89,6 @@ class SettingsActivity : AppCompatActivity() {
             editor.putString("language", "en")
             editor.apply()
             AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
-        }
-    }
-
-    private fun checkVersion() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val w = window
-            w.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
         }
     }
 

@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fundinvest.R
 import com.example.fundinvest.data.StatementHistoryElement
-
 class HistoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner)
     : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
     private var historyList: List<StatementHistoryElement> = listOf()
@@ -23,17 +22,14 @@ class HistoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner)
         )
         return HistoryViewHolder(itemView)
     }
-
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         holder.token.text = historyList[position].token
         holder.date.text = historyList[position].date
     }
-
     class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val token = itemView.findViewById<TextView>(R.id.token)!!
         val date = itemView.findViewById<TextView>(R.id.date)!!
     }
-
     override fun getItemCount(): Int {
         return historyList.size
     }

@@ -27,7 +27,6 @@ class IpoAdapter(private val viewModelStoreOwner: ViewModelStoreOwner)
         )
         return IpoViewHolder(itemView)
     }
-
     override fun onBindViewHolder(holder: IpoViewHolder, position: Int) {
        with(holder){
            if (position.mod(2) == 0){
