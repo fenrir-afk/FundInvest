@@ -9,7 +9,7 @@ data class IPOData(
     @SerializedName("symbol") val symbol: String,
     @SerializedName("exchange") val exchange: String,
     @SerializedName("actions") val actions: String,
-    @SerializedName("shares") val shares: Int?,
+    @SerializedName("shares") val shares: Long?,
     @SerializedName("priceRange") val priceRange: String?,
-    @SerializedName("marketCap") val marketCap: Int?
+    @SerializedName("marketCap") val marketCap: Long?
 )

@@ -30,32 +30,58 @@ class InvestRepository {
     }
     fun getData(callback: (List<StatementHistoryElement>) -> Unit) {
         val localHistoryList = mutableListOf<StatementHistoryElement>()
+        if(FirebaseAuth.getInstance().currentUser != null){ // нужно для тестов
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        val databaseRef = FirebaseDatabase.getInstance().reference
-            .child(userId)
-            .child("StatementsHistory")
-        databaseRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (userSnapshot in snapshot.children) {
-                    val history = userSnapshot.getValue(StatementHistoryElement::class.java)
-                    localHistoryList.add(StatementHistoryElement(history!!.date, history.token))
+            val databaseRef = FirebaseDatabase.getInstance().reference
+                .child(userId)
+                .child("StatementsHistory")
+            databaseRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (userSnapshot in snapshot.children) {
+                        val history = userSnapshot.getValue(StatementHistoryElement::class.java)
+                        localHistoryList.add(StatementHistoryElement(history!!.date, history.token))
+                    }
+                    callback(localHistoryList)
                 }
-                callback(localHistoryList)
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                println("Failed to read data: $error")
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    println("Failed to read data: $error")
+                }
+            })
+        }else{
+            callback(emptyList())
+        }
     }
     fun sendDataToDb(token:String){
         val userInfo = hashMapOf<String,String>()
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        userInfo["token"] = token
-        userInfo["date"] = LocalDate.now().toString()
-        FirebaseDatabase.getInstance().getReference().child(userId).child("StatementsHistory").child(
-            UUID.randomUUID().toString())
-            .setValue(userInfo)
+        if (FirebaseAuth.getInstance().currentUser != null){
+            val userId = FirebaseAuth.getInstance().currentUser!!.uid
+            userInfo["token"] = token
+            userInfo["date"] = LocalDate.now().toString()
+            FirebaseDatabase.getInstance().getReference().child(userId).child("StatementsHistory").child(
+                UUID.randomUUID().toString())
+                .setValue(userInfo)
+        }
+    }
+    fun getCashFlow(token:String,callback: (List<CashFlow>) -> Unit){
+        val alphaVantageApi = RetrofitHelper.getInstance().create(AlphaVantageApi::class.java)
+        // launching a new coroutine
+        alphaVantageApi.getCashFlowStatement(symbol =  token, apikey = API_KEY)
+            .enqueue(object : Callback<CashFlowStatementsData> {
+                override fun onResponse(call: Call<CashFlowStatementsData>, response: Response<CashFlowStatementsData>) {
+                    if (response.isSuccessful) {
+                        val cashFlowResponse = response.body()
+                        callback(cashFlowResponse?.annualReports ?: emptyList())
+                        Log.d("Retrofit","Api data was Successfully get")
+                    } else {
+                        Log.d("Retrofit","Response is not successful")
+                    }
+                }
+
+                override fun onFailure(call: Call<CashFlowStatementsData>, t: Throwable) {
+                    Log.d("Retrofit","Fail")
+                }
+            })
     }
     fun getIncomeStatement(token:String,callback: (List<IncomeStatement>) -> Unit){
         val alphaVantageApi = RetrofitHelper.getInstance().create(AlphaVantageApi::class.java)
@@ -70,7 +96,6 @@ class InvestRepository {
                             Log.d("Retrofit","Response is not successful")
                         }
                     }
-
                     override fun onFailure(call: Call<IncomeStatementsData>, t: Throwable) {
                         Log.d("Retrofit","Fail")
                     }
@@ -90,28 +115,7 @@ class InvestRepository {
                             Log.d("Retrofit","Response is not successful")
                         }
                     }
-
                     override fun onFailure(call: Call<BalanceSheetStatementsData>, t: Throwable) {
-                        Log.d("Retrofit","Fail")
-                    }
-                })
-    }
-    fun getCashFlow(token:String,callback: (List<CashFlow>) -> Unit){
-        val alphaVantageApi = RetrofitHelper.getInstance().create(AlphaVantageApi::class.java)
-        // launching a new coroutine
-            alphaVantageApi.getCashFlowStatement(symbol =  token, apikey = API_KEY)
-                .enqueue(object : Callback<CashFlowStatementsData> {
-                    override fun onResponse(call: Call<CashFlowStatementsData>, response: Response<CashFlowStatementsData>) {
-                        if (response.isSuccessful) {
-                            val cashFlowResponse = response.body()
-                            callback(cashFlowResponse?.annualReports ?: emptyList())
-                            Log.d("Retrofit","Api data was Successfully get")
-                        } else {
-                            Log.d("Retrofit","Response is not successful")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<CashFlowStatementsData>, t: Throwable) {
                         Log.d("Retrofit","Fail")
                     }
                 })

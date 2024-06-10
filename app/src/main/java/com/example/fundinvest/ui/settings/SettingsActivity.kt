@@ -73,7 +73,7 @@ class SettingsActivity : AppCompatActivity() {
 
         }
     }
-    fun setLocale(){
+    private fun setLocale(){
         val sharedPreferences1 = getSharedPreferences("Language", Context.MODE_PRIVATE)
        // val language = sharedPreferences1.getString("language", "en")
         binding.ruButton.setOnClickListener{

@@ -76,42 +76,54 @@ class StatementsFragment : Fragment() {
             }
         }
         binding.incomeCard.setOnClickListener{
-            binding.cashFlowText.setBackgroundColor(Color.WHITE)
-            binding.cashFlowText.setTextColor(Color.BLACK)
-            binding.balanceSheetText.setBackgroundColor(Color.WHITE)
-            binding.balanceSheetText.setTextColor(Color.BLACK)
-            binding.incomeText.setBackgroundColor(Color.BLACK)
-            binding.incomeText.setTextColor(Color.WHITE)
-            if (incomeList.isNotEmpty()){
-                adapter.setIncomeStatementData(incomeList)
-                binding.statementList.adapter = adapter
-            }
+          setIncome(adapter)
         }
         binding.balanceSheetCard.setOnClickListener{
-            binding.incomeText.setBackgroundColor(Color.WHITE)
-            binding.incomeText.setTextColor(Color.BLACK)
-            binding.cashFlowText.setBackgroundColor(Color.WHITE)
-            binding.cashFlowText.setTextColor(Color.BLACK)
-            binding.balanceSheetText.setBackgroundColor(Color.BLACK)
-            binding.balanceSheetText.setTextColor(Color.WHITE)
-            if (balanceSheetList.isNotEmpty()){
-                adapter.setBalanceSheetData(balanceSheetList)
-                binding.statementList.adapter = adapter
-            }
+           setBalanceSheet(adapter)
         }
         binding.cashFlowCard.setOnClickListener{
-            binding.incomeText.setBackgroundColor(Color.WHITE)
-            binding.incomeText.setTextColor(Color.BLACK)
-            binding.balanceSheetText.setBackgroundColor(Color.WHITE)
-            binding.balanceSheetText.setTextColor(Color.BLACK)
-            binding.cashFlowText.setBackgroundColor(Color.BLACK)
-            binding.cashFlowText.setTextColor(Color.WHITE)
-            if (cashFlowList.isNotEmpty()){
-                adapter.setCashFlowData(cashFlowList)
-                binding.statementList.adapter = adapter
-            }
+           setCashFlow(adapter)
         }
         return root
+    }
+
+    private fun setCashFlow(adapter: RecyclerViewAdapter) {
+        binding.incomeText.setBackgroundColor(Color.WHITE)
+        binding.incomeText.setTextColor(Color.BLACK)
+        binding.balanceSheetText.setBackgroundColor(Color.WHITE)
+        binding.balanceSheetText.setTextColor(Color.BLACK)
+        binding.cashFlowText.setBackgroundColor(Color.BLACK)
+        binding.cashFlowText.setTextColor(Color.WHITE)
+        if (cashFlowList.isNotEmpty()){
+            adapter.setCashFlowData(cashFlowList)
+            binding.statementList.adapter = adapter
+        }
+    }
+
+    private fun setBalanceSheet(adapter: RecyclerViewAdapter) {
+        binding.incomeText.setBackgroundColor(Color.WHITE)
+        binding.incomeText.setTextColor(Color.BLACK)
+        binding.cashFlowText.setBackgroundColor(Color.WHITE)
+        binding.cashFlowText.setTextColor(Color.BLACK)
+        binding.balanceSheetText.setBackgroundColor(Color.BLACK)
+        binding.balanceSheetText.setTextColor(Color.WHITE)
+        if (balanceSheetList.isNotEmpty()){
+            adapter.setBalanceSheetData(balanceSheetList)
+            binding.statementList.adapter = adapter
+        }
+    }
+
+    private fun setIncome(adapter: RecyclerViewAdapter) {
+        binding.cashFlowText.setBackgroundColor(Color.WHITE)
+        binding.cashFlowText.setTextColor(Color.BLACK)
+        binding.balanceSheetText.setBackgroundColor(Color.WHITE)
+        binding.balanceSheetText.setTextColor(Color.BLACK)
+        binding.incomeText.setBackgroundColor(Color.BLACK)
+        binding.incomeText.setTextColor(Color.WHITE)
+        if (incomeList.isNotEmpty()){
+            adapter.setIncomeStatementData(incomeList)
+            binding.statementList.adapter = adapter
+        }
     }
 
 

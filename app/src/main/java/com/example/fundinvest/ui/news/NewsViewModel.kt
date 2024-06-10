@@ -12,7 +12,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class NewsViewModel : ViewModel() {
-    val articlesLiveData: MutableLiveData<List<String> > = MutableLiveData()
+    val articlesLiveData: MutableLiveData<List<String>> = MutableLiveData()
     val dateArr: MutableList<String> = mutableListOf()
     var imgUrls: MutableList<String> = mutableListOf()
     var linkArr: MutableList<String> = mutableListOf()
